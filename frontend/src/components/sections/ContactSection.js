@@ -24,6 +24,7 @@ const ContactSection = () => {
   useEffect(() => {
     if (isSubmitSuccessful) {
       reset();
+      setIsSubmitSuccessful(false);
     }
   }, [isSubmitSuccessful, reset]);
 
