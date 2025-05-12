@@ -1,53 +1,74 @@
-import { useEffect } from "react";
-import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router";
-import axios from "axios";
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import WebFont from 'webfontloader';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+// CSS imports
+import './App.css';
 
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
+// Layout components
+import Navbar from './components/layout/Navbar';
+import Footer from './components/layout/Footer';
 
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
+// Page sections
+import HeroSection from './components/sections/HeroSection';
+import WhySolaceVR from './components/sections/WhySolaceVR';
+import ProductsSection from './components/sections/ProductsSection';
+import CaseStudiesSection from './components/sections/CaseStudiesSection';
+import ResearchSection from './components/sections/ResearchSection';
+import PressSection from './components/sections/PressSection';
+import ContactSection from './components/sections/ContactSection';
 
-  return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
-};
+// Common components
+import NewsletterPopup from './components/common/NewsletterPopup';
+import CookieBanner from './components/common/CookieBanner';
+import ScrollToTop from './components/common/ScrollToTop';
+
+// Pages
+import NotFound from './components/pages/NotFound';
 
 function App() {
+  useEffect(() => {
+    // Load fonts
+    WebFont.load({
+      google: {
+        families: ['Inter:300,400,600,800', 'Poppins:300,400,600,800']
+      }
+    });
+  }, []);
+
+  // Main homepage component
+  const HomePage = () => (
+    <>
+      <Navbar />
+
+      <main>
+        <HeroSection />
+        <WhySolaceVR />
+        <ProductsSection />
+        <CaseStudiesSection />
+        <ResearchSection />
+        <PressSection />
+        <ContactSection />
+      </main>
+
+      <Footer />
+      
+      <NewsletterPopup />
+      <CookieBanner />
+      <ScrollToTop />
+    </>
+  );
+
   return (
-    <div className="App">
-      <BrowserRouter>
+    <Router>
+      <div className="App">
         <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
+          <Route path="/" element={<HomePage />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
-      </BrowserRouter>
-    </div>
+      </div>
+    </Router>
   );
 }
 
