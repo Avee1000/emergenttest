@@ -4,7 +4,8 @@ import { useInView } from 'react-intersection-observer';
 import { useForm } from 'react-hook-form';
 
 const ContactSection = () => {
-  const { register, handleSubmit, reset, formState: { errors, isSubmitSuccessful } } = useForm();
+  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const [isSubmitSuccessful, setIsSubmitSuccessful] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({});
 
