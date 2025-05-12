@@ -153,7 +153,6 @@ const ProductsSection = () => {
                   <Tab.Panel
                     key={product.id}
                     static
-                    className={idx === selectedIndex ? 'block' : 'hidden'}
                   >
                     <motion.div
                       variants={tabContentVariants}
