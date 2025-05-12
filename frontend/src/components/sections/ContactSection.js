@@ -52,10 +52,12 @@ const ContactSection = () => {
     if (currentStep < 3) {
       setFormData({...formData, ...data});
       setCurrentStep(currentStep + 1);
+      reset(data); // Keep the data but reset validation state
     } else {
       const finalData = {...formData, ...data};
       console.log('Form submitted:', finalData);
       // Here you would typically send the data to your backend
+      setIsSubmitSuccessful(true);
       setCurrentStep(4); // Move to thank you step
     }
   };
